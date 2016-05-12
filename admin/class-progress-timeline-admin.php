@@ -54,6 +54,38 @@ class Progress_Timeline_Admin {
 
 	}
 
+    /**
+     * Display admin menu
+     *
+     * @since    1.0.0
+     */
+    public function display_admin_page() {
+
+        add_menu_page(
+            __( 'Progress Timeline Settings', 'progress-timeline' ),
+            'Progress Timeline',
+            'manage_options',
+            'progress-timeline-admin',
+            array($this, 'show_admin_page')
+            // '',
+            // '3.0'
+        );
+
+    }
+    
+    /**
+     * Show admin page HTML
+     *
+     * @since    1.0.0
+     */
+    public function show_admin_page() {
+
+        include plugin_dir_path( __FILE__ ) . 'partials/progress-timeline-admin-display.php';
+
+    }
+    
+    
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *

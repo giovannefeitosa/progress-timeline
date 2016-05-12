@@ -12,5 +12,5 @@
  * @subpackage Progress_Timeline/admin/partials
  */
 ?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<h1>Hello, admin!</h1>
+<p>This is where you will customize the settings for this plugin</p>
