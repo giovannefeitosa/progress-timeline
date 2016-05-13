@@ -108,7 +108,23 @@ class Progress_Timeline_Public {
      * @return   string             The HTML code
      */
     public function progress_timeline_shortcode( $atts ) {
-        return 'Eureka! Progress Timeline Shortcode works :)';
+        
+        // https://developer.wordpress.org/reference/functions/get_categories/
+        $categories = get_categories(array(
+            'hide_empty' => 0,
+            'orderby' => 'name',
+        ));
+        
+        // https://developer.wordpress.org/reference/functions/get_posts/
+        // https://codex.wordpress.org/Template_Tags/get_posts
+        $posts = get_posts(array(
+            'posts_per_page' => 5,
+        ));
+        
+        ob_start();
+        include plugin_dir_path( __FILE__ ) . 'partials/progress-timeline-public-display.php';
+        return ob_get_clean();
+        
     }
 
 }
