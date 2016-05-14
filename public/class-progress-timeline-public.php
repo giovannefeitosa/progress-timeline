@@ -3,18 +3,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://www.giovanneafonso.net
- * @since      1.0.0
- *
- * @package    Progress_Timeline
- * @subpackage Progress_Timeline/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
+ *
+ * @link       http://www.giovanneafonso.net
+ * @since      1.0.0
  *
  * @package    Progress_Timeline
  * @subpackage Progress_Timeline/public
@@ -39,6 +32,15 @@ class Progress_Timeline_Public {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
+    
+    /**
+     * The timeline object
+     * 
+     * @since   1.0.0
+     * @access  privte
+     * @var     Progress_Timeline_Object  $timeline  The timeline Object
+     */
+    private $timeline;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -51,6 +53,7 @@ class Progress_Timeline_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+        $this->timeline = new Progress_Timeline_Object();
 
 	}
 
@@ -95,9 +98,20 @@ class Progress_Timeline_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+        
+        // Except the wp_enqueue_script, the script is based on this
+        // http://www.billerickson.net/infinite-scroll-in-wordpress/
+        //global $wp_query;
+        
+        $args = array(
+            'nonce' => wp_create_nonce( 'ptl-load-more-nonce' ),
+            'url'   => admin_url( 'admin-ajax.php' ),
+        );
+        
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/progress-timeline-public.js', array( 'jquery' ), $this->version, false );
-
+        
+        wp_localize_script( $this->plugin_name, 'ptlLoadMore', $args );
+        
 	}
     
     /**
@@ -109,21 +123,21 @@ class Progress_Timeline_Public {
      */
     public function progress_timeline_shortcode( $atts ) {
         
-        // https://developer.wordpress.org/reference/functions/get_categories/
-        $categories = get_categories(array(
-            'hide_empty' => 0,
-            'orderby' => 'name',
-        ));
+        return $this->timeline->getFullHTML();
         
-        // https://developer.wordpress.org/reference/functions/get_posts/
-        // https://codex.wordpress.org/Template_Tags/get_posts
-        $posts = get_posts(array(
-            'posts_per_page' => 5,
-        ));
+    }
+    
+    /**
+     * AJAX Load More posts from timeline
+     */
+    public function ptl_ajax_load_more() {
         
-        ob_start();
-        include plugin_dir_path( __FILE__ ) . 'partials/progress-timeline-public-display.php';
-        return ob_get_clean();
+        check_ajax_referer( 'ptl-load-more-nonce', 'nonce' );
+        $page = isset($_POST['page']) ? $_POST['page'] : 1;
+        
+        $data = $this->timeline->getPageHTML($page);
+        
+        wp_send_json_success( $data );
         
     }
 
