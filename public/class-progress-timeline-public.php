@@ -115,15 +115,33 @@ class Progress_Timeline_Public {
 	}
     
     /**
+     * Get the Timeline Object instance
+     *
+     * @since  1.0.0
+     * @return Progress_Timeline_Object
+     */
+    public function get_timeline( $args ) {
+        
+        return new Progress_Timeline_Object( $args );
+        
+    }
+    
+    /**
      * Generate shortcode html code
      *
      * @since    1.0.0
-     * @param    array     $atts    Attributes passed through the shortcode
+     * @param    array     $args    Attributes passed through the shortcode
      * @return   string             The HTML code
      */
-    public function progress_timeline_shortcode( $atts ) {
+    public function progress_timeline_shortcode( $args ) {
         
-        return $this->timeline->getFullHTML();
+        $defaults = array(
+            'category' => null,
+        );
+        
+        $args = wp_parse_args( $args, $defaults );
+        
+        return $this->get_timeline( $args )->getFullHTML();
         
     }
     
@@ -133,9 +151,20 @@ class Progress_Timeline_Public {
     public function ptl_ajax_load_more() {
         
         check_ajax_referer( 'ptl-load-more-nonce', 'nonce' );
+        
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
         
-        $data = $this->timeline->getPageHTML($page);
+        $category = isset($_POST['category']) ? $_POST['category'] : null;
+        
+        $args = array(
+            'category' => $category,
+        );
+        
+        ini_set('display_errors', E_ALL);
+        error_reporting(-1);
+        
+        $timeline = $this->get_timeline( $args );
+        $data = $timeline->getPageHTML( $page );
         
         wp_send_json_success( $data );
         

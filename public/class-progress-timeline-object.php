@@ -15,7 +15,7 @@
 class Progress_Timeline_Object {
     
     /**
-     * All categories shown on this progress timeline
+     * List of all categories
      *
      * @since   1.0.0
 	 * @access  private
@@ -53,7 +53,8 @@ class Progress_Timeline_Object {
     public function __construct( $args = null ) {
         
         $defaults = array(
-            'cats' => null,
+            'category' => null,
+            'posts_per_page' => 5,
         );
         
         $args = wp_parse_args( $args, $defaults );
@@ -76,12 +77,14 @@ class Progress_Timeline_Object {
         $defaults = array(
             'hide_empty' => 0,
             'orderby' => 'name',
-            // 'include' => array(1,2),
+            //'include' => array(2,3,4),
         );
         
-        $r = wp_parse_args( $this->args['cats'], $defaults );
+        // if($this->args['category']) {
+        //     $defaults['include'] = $this->args['category'];
+        // }
         
-        return get_categories( $r );
+        return get_categories( $defaults );
         
     }
     
@@ -95,12 +98,42 @@ class Progress_Timeline_Object {
     private function get_category_by_id($id) {
         
         foreach($this->categories as $category) {
-            if($category->term_id === $id) {
+            if($category->term_id == $id) {
                 return $category;
             }
         }
         
         return null;
+        
+    }
+    
+    /**
+     * Get only the categories chosen by the user
+     *
+     * @since   1.0.0
+     * @return  array  List of categories
+     */
+    public function get_categories() {
+        
+        $categories = array();
+        
+        if( $this->args['category'] ) {
+            
+            $cts = is_array( $this->args['category'] )
+                ? $this->args['category']
+                : explode( ',', $this->args['category'] );
+            
+            foreach( $cts as $ct ) {
+                
+                $categories[] = $this->get_category_by_id( $ct );
+                
+            }
+            
+        } else {
+            $categories = $this->categories;
+        }
+        
+        return $categories;
         
     }
     
@@ -115,21 +148,18 @@ class Progress_Timeline_Object {
      */
     public function fetch_posts($page = 1, $args = null) {
         
-        $posts_per_page = 5;
         $offset = 0;
         
         if($page > 1) {
-            $offset = ($page-1) * $posts_per_page;
+            $offset = ($page-1) * $this->args['posts_per_page'];
         }
         
-        $defaults = array(
-            'posts_per_page' => $posts_per_page,
-            'offset' => $offset,
-        );
+        $r = wp_parse_args( $args, $this->args );
         
-        $r = wp_parse_args( $args, $defaults );
+        $r['offset'] = $offset;
         
-        $posts = get_posts($r);
+        // var_dump($r);die();
+        $posts = get_posts( $r );
         
         // Append categories to each post
         foreach($posts as &$post) {
@@ -154,10 +184,11 @@ class Progress_Timeline_Object {
      */
     public function getFullHTML() {
         
-        $categories  = $this->categories;
+        $categories  = $this->get_categories;
         $posts       = $this->fetch_posts(1);
         $timeline_id = $this->id;
-        
+        $filtered_categories = $this->get_categories();
+        //var_dump($filtered_categories);die();
         ob_start();
         
         include plugin_dir_path( __FILE__ ) . 'partials/progress-timeline-public-display.php';
@@ -173,11 +204,12 @@ class Progress_Timeline_Object {
      * @param   int     $page  The page to show HTML
      * @return  string         The HTML code
      */
-    public function getPageHTML($page = 1) {
+    public function getPageHTML( $page = 1 ) {
         
         $categories  = $this->categories;
-        $posts       = $this->fetch_posts($page);
+        $posts       = $this->fetch_posts( $page );
         $timeline_id = $this->id;
+        
         ob_start();
         
         include plugin_dir_path( __FILE__ ) . 'partials/timeline-page.php';

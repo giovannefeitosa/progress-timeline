@@ -12,14 +12,14 @@
  * @subpackage Progress_Timeline/public/partials
  */
 ?>
-<div class="ptl-container" data-progress-timeline data-ptl-page="1">
+<div class="ptl-container" data-progress-timeline="<?= $timeline_id; ?>" data-ptl-page="1">
 
     <div class="ptl-cat-container">
         <ul class="ptl-cat-ul">
-            <?php foreach($categories as $cat) { ?>
+            <?php foreach($filtered_categories as $cat) { ?>
                 <li>
                     <label>
-                        <input type="checkbox" name="ptl-checkboxes" checked>
+                        <input type="checkbox" value="<?= $cat->cat_ID ?>" checked data-progress-timeline-checkbox>
                         <?= $cat->cat_name; ?>
                     </label>
                 </li>

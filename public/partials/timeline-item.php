@@ -22,11 +22,11 @@
         <p>
             <ul class="ptl--cats">
 
-                <?php /*
+                <?php /* * / ?>
                 <pre style="text-align:left;">
-                    <?php echo json_encode($post_cats, JSON_PRETTY_PRINT); ?>
+                    <?php echo json_encode($post->categories, JSON_PRETTY_PRINT); ?>
                 </pre>
-                */ ?>
+                <?php /* */ ?>
 
                 <?php foreach($post->categories as $post_cat): ?>
                     <li>
