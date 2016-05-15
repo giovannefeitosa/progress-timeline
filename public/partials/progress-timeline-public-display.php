@@ -16,6 +16,13 @@
 
     <div class="ptl-cat-container">
         <ul class="ptl-cat-ul">
+            <li>
+                <label>
+                    <input type="checkbox" checked data-progress-timeline-check-all>
+                    <?= __( 'Select All', 'progress-timeline' ); ?>
+                </label>
+            </li>
+            
             <?php foreach($filtered_categories as $cat) { ?>
                 <li>
                     <label>

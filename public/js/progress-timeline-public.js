@@ -8,6 +8,8 @@
             var timeline_container = $(this);
             var timeline_id = timeline_container.data('progress-timeline');
             var load_more_button = timeline_container.find('[data-progress-timeline-load-more]');
+            var category_checkboxes = timeline_container.find('[data-progress-timeline-checkbox]');
+            var checkbox_check_all = timeline_container.find('[data-progress-timeline-check-all]');
             
             var getTimelineData = function( page ) {
                 var filter_categories = [];
@@ -76,7 +78,7 @@
                 
             }); // end of [data-progress-timeline-load-more]
             
-            timeline_container.find('[data-progress-timeline-checkbox]').on('change', function() {
+            category_checkboxes.on('change', function() {
                 
                 var data = getTimelineData( 1 );
                 
@@ -91,7 +93,11 @@
                 })
                 
             });
-        
+            
+            checkbox_check_all.on('change', function() {
+                category_checkboxes.attr( 'checked', $(this).is(':checked') ).trigger('change');
+            });
+            
         }); // end of timelines.each
         
     });
