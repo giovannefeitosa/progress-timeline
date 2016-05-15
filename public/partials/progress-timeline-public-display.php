@@ -29,12 +29,6 @@
 
     <div class="ptl-tl-container">
         <ul class="progress-timeline-posts">
-            <li>
-                <div class="ptl--header">
-                    <h3 class="ptl--header-title">Hoje</h3>
-                    <p>13 de Maio de 2016</p>
-                </div>
-            </li>
             
             <?php include __DIR__ . '/timeline-page.php'; ?>
             

@@ -97,6 +97,11 @@ class Progress_Timeline {
 	private function load_dependencies() {
 
 		/**
+         * Helper class
+         */
+        require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-progress-timeline-helpers.php';
+        
+        /**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
