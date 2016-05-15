@@ -4,7 +4,7 @@ class Progress_Timeline_Helpers {
     
     public static function post_time_ago($post) {
 
-        $date = get_post_time('G', true, $post);
+        $date = get_post_time('U', true, $post);
 
         // Array of time period chunks
         $chunks = array(
