@@ -11,8 +11,11 @@
  * @package    Progress_Timeline
  * @subpackage Progress_Timeline/public/partials
  */
+
+$last_post_date = isset($last_post_date) ? $last_post_date : '';
+
 ?>
-<div class="ptl-container" data-progress-timeline="<?= $timeline_id; ?>" data-ptl-page="1">
+<div class="ptl-container" data-progress-timeline="<?= $timeline_id; ?>" data-ptl-page="1" data-ptl-last-date="<?= $last_post_date ?>">
 
     <div class="ptl-cat-container">
         <ul class="ptl-cat-ul">

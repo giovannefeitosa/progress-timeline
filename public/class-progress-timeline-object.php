@@ -33,6 +33,18 @@ class Progress_Timeline_Object {
     private $args;
     
     /**
+     * Last date
+     * Created to hide the header when requesting new posts on infinite scroll
+     * When you call $timeline->get_page_html, if the first post's date is equal
+     * to $timeline->last_date, the first header will be hidden
+     *
+     * @since   1.0.0
+     * @access  private
+     * @var     array    $args  The date of last post shown in the header
+     */
+    private $last_date = null;
+    
+    /**
      * ID from timeline
      * This property was created to handle multiple timelines on the same page
      *
@@ -182,13 +194,17 @@ class Progress_Timeline_Object {
      * @since   1.0.0
      * @return  string         The HTML code
      */
-    public function getFullHTML() {
+    public function get_full_html() {
         
         $categories  = $this->get_categories;
         $posts       = $this->fetch_posts(1);
         $timeline_id = $this->id;
         $filtered_categories = $this->get_categories();
+        
+        $last_post_date = explode(' ', end($posts)->post_date)[0];
+        
         //var_dump($filtered_categories);die();
+        
         ob_start();
         
         include plugin_dir_path( __FILE__ ) . 'partials/progress-timeline-public-display.php';
@@ -204,11 +220,23 @@ class Progress_Timeline_Object {
      * @param   int     $page  The page to show HTML
      * @return  string         The HTML code
      */
-    public function getPageHTML( $page = 1 ) {
+    public function get_page_html( $page = 1 ) {
         
         $categories  = $this->categories;
         $posts       = $this->fetch_posts( $page );
         $timeline_id = $this->id;
+        
+        $first_post_date = null;
+        $last_post_date = null;
+        
+        if( count($posts) ) {
+            $first_post_date = explode( ' ', $posts[0]->post_date )[0];
+            $last_post_date = explode(' ', end($posts)->post_date)[0];
+        }
+        
+        $jump_one = $first_post_date === $this->last_date;
+        
+        $this->last_date = $last_post_date;
         
         ob_start();
         
@@ -218,4 +246,22 @@ class Progress_Timeline_Object {
         
     }
     
+    /**
+     * Set $last_date
+     *
+     * @since  1.0.0
+     * @param  string  $last_date  Date of the last post in the timeline
+     */
+    public function set_last_date( $last_date ) {
+        $this->last_date = $last_date;
+    }
+    
+    /**
+     * Get $last_date
+     *
+     * @since  1.0.0
+     */
+    public function get_last_date() {
+        return $this->last_date;
+    }
 }

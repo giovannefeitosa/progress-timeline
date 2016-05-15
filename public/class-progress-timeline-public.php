@@ -141,7 +141,7 @@ class Progress_Timeline_Public {
         
         $args = wp_parse_args( $args, $defaults );
         
-        return $this->get_timeline( $args )->getFullHTML();
+        return $this->get_timeline( $args )->get_full_html();
         
     }
     
@@ -154,6 +154,8 @@ class Progress_Timeline_Public {
         
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
         
+        $last_date = isset($_POST['last_date']) ? $_POST['last_date'] : null;
+        
         $category = isset($_POST['category']) ? $_POST['category'] : null;
         
         $args = array(
@@ -164,9 +166,15 @@ class Progress_Timeline_Public {
         error_reporting(-1);
         
         $timeline = $this->get_timeline( $args );
-        $data = $timeline->getPageHTML( $page );
+        $timeline->set_last_date( $last_date );
+        $data = array(
+            'success' => true,
+            'data' => $timeline->get_page_html( $page ),
+            'last_date' => $timeline->get_last_date(),
+        );
         
-        wp_send_json_success( $data );
+        
+        wp_send_json( $data );
         
     }
 

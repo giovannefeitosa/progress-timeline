@@ -6,7 +6,6 @@ $last_header = null;
 
 foreach($posts as $post):
     
-    //var_dump($post);die();
     $post_date = explode(' ', $post->post_date_gmt)[0];
 
     if($post_date != $last_header) {
@@ -16,8 +15,6 @@ foreach($posts as $post):
             $jump_one = false;
             
         } else {
-            
-            $last_header = $post_date;
             
             if( $post_date === date('Y-m-d') ) {
                 
@@ -38,6 +35,8 @@ foreach($posts as $post):
             include __DIR__ . '/timeline-title.php';
             
         }
+        
+        $last_header = $post_date;
         
     }
     

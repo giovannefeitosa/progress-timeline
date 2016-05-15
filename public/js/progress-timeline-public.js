@@ -23,6 +23,7 @@
                     action: 'ptl_ajax_load_more',
                     nonce: ptlLoadMore.nonce,
                     page: page || 1,
+                    last_date: timeline_container.data( 'ptl-last-date' ),
                     category: filter_categories,
                 };
             };
@@ -34,7 +35,10 @@
                     if( res.success ) {
                         
                         // Update current page
-                        timeline_container.data('ptl-page', data.page);
+                        timeline_container.data( 'ptl-page', data.page );
+                        
+                        // Update last page
+                        timeline_container.data( 'ptl-last-date', res.last_date );
                         
                         callback(res.data);
                         
@@ -55,19 +59,14 @@
         
             load_more_button.click(function() {
 
-                // var timeline_id = load_more_button.data('progress-timeline-load-more');
-                // var timeline_container = $('[data-progress-timeline="' + timeline_id + '"]');
+                var current_page = timeline_container.data( 'ptl-page' );
 
-                var current_page = timeline_container.data('ptl-page');
-
-                //console.log("filter", filter_categories);
-                
                 var data = getTimelineData( current_page + 1 );
 
                 fetchTimelinePage(data, function( html ) {
                     
                     // Add new posts to the list
-                    timeline_container.find('.progress-timeline-posts').append( html );
+                    timeline_container.find( '.progress-timeline-posts' ).append( html );
 
                     // Doesn't have any data
                     if( !html ) {
@@ -76,7 +75,7 @@
                     
                 });
                 
-            }); // end of [data-progress-timeline-load-more]
+            }); // end of load_more_button:click
             
             category_checkboxes.on('change', function() {
                 
@@ -92,11 +91,13 @@
                     
                 })
                 
-            });
+            }); // end of category_checkboxes:change
             
             checkbox_check_all.on('change', function() {
+                
                 category_checkboxes.attr( 'checked', $(this).is(':checked') ).trigger('change');
-            });
+                
+            }); // end of checkbox_check_all:change
             
         }); // end of timelines.each
         
