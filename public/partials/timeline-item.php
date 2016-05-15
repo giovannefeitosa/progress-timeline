@@ -44,13 +44,13 @@
             <li>
                 <div class="ptl--item-action">
                     <img src="http://placehold.it/20x20">
-                    2 horas
+                    <?= Progress_Timeline_Helpers::post_time_ago( $post ); ?>
                 </div>
             </li>
             <li>
                 <div class="ptl--item-action">
                     <img src="http://placehold.it/20x20">
-                    2 comentários
+                    0 <?= __( 'comments', 'progress-timeline' ); ?>
                 </div>
             </li>
         </ul>

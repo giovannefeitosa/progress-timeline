@@ -6,22 +6,15 @@ class Progress_Timeline_Helpers {
 
         $date = get_post_time('G', true, $post);
 
-        /**
-         * Where you see 'themeblvd' below, you'd
-         * want to replace those with whatever term
-         * you're using in your theme to provide
-         * support for localization.
-         */ 
-
         // Array of time period chunks
         $chunks = array(
-            array( 60 * 60 * 24 * 365 , __( 'year', 'themeblvd' ), __( 'years', 'themeblvd' ) ),
-            array( 60 * 60 * 24 * 30 , __( 'month', 'themeblvd' ), __( 'months', 'themeblvd' ) ),
-            array( 60 * 60 * 24 * 7, __( 'week', 'themeblvd' ), __( 'weeks', 'themeblvd' ) ),
-            array( 60 * 60 * 24 , __( 'day', 'themeblvd' ), __( 'days', 'themeblvd' ) ),
-            array( 60 * 60 , __( 'hour', 'themeblvd' ), __( 'hours', 'themeblvd' ) ),
-            array( 60 , __( 'minute', 'themeblvd' ), __( 'minutes', 'themeblvd' ) ),
-            array( 1, __( 'second', 'themeblvd' ), __( 'seconds', 'themeblvd' ) )
+            array( 60 * 60 * 24 * 365 , __( 'year', 'progress-timeline' ), __( 'years', 'progress-timeline' ) ),
+            array( 60 * 60 * 24 * 30 , __( 'month', 'progress-timeline' ), __( 'months', 'progress-timeline' ) ),
+            array( 60 * 60 * 24 * 7, __( 'week', 'progress-timeline' ), __( 'weeks', 'progress-timeline' ) ),
+            array( 60 * 60 * 24 , __( 'day', 'progress-timeline' ), __( 'days', 'progress-timeline' ) ),
+            array( 60 * 60 , __( 'hour', 'progress-timeline' ), __( 'hours', 'progress-timeline' ) ),
+            array( 60 , __( 'minute', 'progress-timeline' ), __( 'minutes', 'progress-timeline' ) ),
+            array( 1, __( 'second', 'progress-timeline' ), __( 'seconds', 'progress-timeline' ) )
         );
 
         if ( !is_numeric( $date ) ) {
@@ -30,7 +23,7 @@ class Progress_Timeline_Helpers {
             $date = gmmktime( (int)$time_chunks[1], (int)$time_chunks[2], (int)$time_chunks[3], (int)$date_chunks[1], (int)$date_chunks[2], (int)$date_chunks[0] );
         }
 
-        $current_time = current_time( 'mysql', $gmt = 0 );
+        $current_time = current_time( 'mysql', $gmt = 1 );
         $newer_date = strtotime( $current_time );
 
         // Difference in seconds
@@ -38,7 +31,7 @@ class Progress_Timeline_Helpers {
 
         // Something went wrong with date calculation and we ended up with a negative date.
         if ( 0 > $since )
-            return __( 'sometime', 'themeblvd' );
+            return __( 'sometime', 'progress-timeline' );
 
         /**
          * We only want to output one chunks of time here, eg:
@@ -61,10 +54,10 @@ class Progress_Timeline_Helpers {
 
 
         if ( !(int)trim($output) ){
-            $output = '0 ' . __( 'seconds', 'themeblvd' );
+            $output = '0 ' . __( 'seconds', 'progress-timeline' );
         }
 
-        $output .= __(' ago', 'themeblvd');
+        $output .= __(' ago', 'progress-timeline');
 
         return $output;
     }
