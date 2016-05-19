@@ -204,6 +204,10 @@ class Progress_Timeline_Admin {
             'name_admin_bar'        => _x( 'Timeline Category', 'Add New on Toolbar', 'progress-timeline' ),
             'add_new'               => __( 'Add New PTL Category', 'progress-timeline' ),
             'new_item'              => __( 'New Timeline Category', 'progress-timeline' ),
+            'rewrite'            => array(
+                'slug' => 'timeline-categories',
+                'with_front' => true,
+            ),
         );
         
         $args_taxonomy = array(

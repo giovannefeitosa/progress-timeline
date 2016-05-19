@@ -179,10 +179,10 @@ class Progress_Timeline_Object {
         foreach($posts as &$post) {
             $post->categories = array();
             
-            $cat_ids = wp_get_post_categories($post->ID);
+            $categorias = get_the_terms( $post->ID, 'timeline_categories' );
             
-            foreach($cat_ids as $cat_id) {
-                $post->categories[] = $this->get_category_by_id($cat_id);
+            foreach($categorias as $categoria) {
+                $post->categories[] = $categoria;
             }
         }
         

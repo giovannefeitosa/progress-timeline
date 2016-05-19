@@ -29,7 +29,7 @@ $last_post_date = isset($last_post_date) ? $last_post_date : '';
             <?php foreach($filtered_categories as $cat) { ?>
                 <li>
                     <label>
-                        <input type="checkbox" value="<?= $cat->cat_ID ?>" checked data-progress-timeline-checkbox>
+                        <input type="checkbox" value="<?= $cat->slug ?>" checked data-progress-timeline-checkbox>
                         <?= $cat->cat_name; ?>
                     </label>
                 </li>

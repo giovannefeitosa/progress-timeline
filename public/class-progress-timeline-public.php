@@ -159,7 +159,7 @@ class Progress_Timeline_Public {
         $category = isset($_POST['category']) ? $_POST['category'] : null;
         
         $args = array(
-            'category' => $category,
+            'timeline_categories' => $category,
         );
         
         ini_set('display_errors', E_ALL);
