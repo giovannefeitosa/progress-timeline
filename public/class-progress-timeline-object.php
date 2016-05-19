@@ -67,6 +67,7 @@ class Progress_Timeline_Object {
         $defaults = array(
             'category' => null,
             'posts_per_page' => 5,
+            'post_type' => 'timeline_post',
         );
         
         $args = wp_parse_args( $args, $defaults );
@@ -78,7 +79,7 @@ class Progress_Timeline_Object {
     }
     
     /**
-     * Get the categories to show in the Timeline
+     * Get the the timeline categories to show in the Timeline
      *   https://developer.wordpress.org/reference/functions/get_categories/
      *
      * @since  1.0.0
@@ -89,6 +90,7 @@ class Progress_Timeline_Object {
         $defaults = array(
             'hide_empty' => 0,
             'orderby' => 'name',
+            'taxonomy' => 'timeline_categories',
             //'include' => array(2,3,4),
         );
         
@@ -150,7 +152,7 @@ class Progress_Timeline_Object {
     }
     
     /**
-     * Get the posts to show in the Timeline
+     * Get the timeline posts to show in the Timeline
      *   https://developer.wordpress.org/reference/functions/get_posts/
      *
      * @since  1.0.0

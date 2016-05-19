@@ -180,6 +180,11 @@ class Progress_Timeline_Admin {
             'menu_position'      => 5,
             'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
             'has_archive'        => true,
+            'capability_type' => 'post',
+            'rewrite'            => array(
+                'slug' => 'timeline-posts',
+                'with_front' => true,
+            ),
         );
         
         register_post_type( 'timeline_post', $args_post_type );
@@ -203,10 +208,13 @@ class Progress_Timeline_Admin {
         
         $args_taxonomy = array(
             'labels' => $labels_taxonomy,
+            'hierarchical' => true,
             'description' => __( 'Categories of Progress Timeline\'s posts', 'progress-timeline' ),
         );
         
         register_taxonomy( 'timeline_categories', 'timeline_post', $args_taxonomy );
+        
+        flush_rewrite_rules();
         
     }
 
