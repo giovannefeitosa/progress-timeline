@@ -177,5 +177,29 @@ class Progress_Timeline_Public {
         wp_send_json( $data );
         
     }
+    
+    /**
+     * Show link "back to timeline" in single timeline post's page
+     */
+    public function progress_timeline_content_filter( $content ) {
+        global $post;
+        
+        if($post->post_type === 'timeline_post') {
+            
+            $pt_url = get_post_type_archive_link( 'timeline_post' );
+            
+            $pt_link = '<div class="ptl-back-link">'
+                        . '<a href="' . $pt_url . '" title="Voltar para a Timeline">'
+                        . 'Voltar para a Timeline'
+                        . '</a>'
+                        . '</div>';
+            
+            $content = $pt_link . $content;
+            
+        }
+        
+        return $content;
+        
+    }
 
 }
