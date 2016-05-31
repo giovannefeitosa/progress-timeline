@@ -2,6 +2,12 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+/*
+.hentry {
+    padding: 1em !important;
+}
+*/
+
 .ptl-container {
   display: flex;
   font-size: 16px;
@@ -11,6 +17,15 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.progress-timeline-posts {
+  display: flex !important;
+  flex-flow: row wrap;
+  align-content: stretch;
+}
+.progress-timeline-posts > li {
+  flex: 1 0 50%;
+  padding: .5em;
 }
 
 .ptl-tl-container {

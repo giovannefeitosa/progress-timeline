@@ -38,11 +38,8 @@ $last_post_date = isset($last_post_date) ? $last_post_date : '';
     </div>
 
     <div class="ptl-tl-container">
-        <ul class="progress-timeline-posts">
             
-            <?php include __DIR__ . '/timeline-page.php'; ?>
-            
-        </ul>
+        <?php include __DIR__ . '/timeline-page.php'; ?>
         
         <button data-progress-timeline-load-more>Load More...</button>
     </div>

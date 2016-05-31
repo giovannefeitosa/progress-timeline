@@ -1,28 +1,35 @@
 <?php
 
+$ptl_ul_class = 'progress-timeline-posts';
+$ptl_columns = 2;
+
+echo '<ul class="' . $ptl_ul_class . '">';
+
 $jump_one = isset($jump_one) && $jump_one;
 
 $last_header = null;
 
-foreach($posts as $post):
+foreach ($posts as $post) :
     
-    $post_date = explode(' ', $post->post_date_gmt)[0];
+    setup_postdata($post);
+    
+    $post_date = explode(' ', $post->post_date)[0];
 
-    if($post_date != $last_header) {
+    if ($post_date != $last_header) {
         
-        if($jump_one) {
+        if ($jump_one) {
             
             $jump_one = false;
             
         } else {
             
-            if( $post_date === date('Y-m-d') ) {
+            if ($post_date === date('Y-m-d')) {
                 
-                $title = __( 'Today', 'progress-timeline' );
+                $title = __('Today', 'progress-timeline');
                 
-            } elseif( $post_date === date("Y-m-d", time() - 60 * 60 * 24) ) {
+            } elseif ($post_date === date("Y-m-d", time() - 60 * 60 * 24)) {
                 
-                $title = __( 'Yesterday', 'progress-timeline' );
+                $title = __('Yesterday', 'progress-timeline');
                 
             } else {
                 
@@ -30,9 +37,13 @@ foreach($posts as $post):
                 
             }
             
-            $subtitle = get_the_date( get_option('date_format'), $post );
+            $subtitle = get_the_date(get_option('date_format'), $post);
+            
+            echo '</ul>';
             
             include __DIR__ . '/timeline-title.php';
+            
+            echo '<ul class="' . $ptl_ul_class . '">';
             
         }
         
@@ -43,7 +54,12 @@ foreach($posts as $post):
     ?>
     
     <li>
-        <?php include __DIR__ . '/timeline-item.php'; ?>
+        <?php /* */ include __DIR__ . '/timeline-item.php'; /* */ ?>
+        <?php /* * / get_template_part('content', $post->post_type); /* */ ?>
     </li>
     
-<?php endforeach; wp_reset_postdata(); ?>
+<?php
+endforeach;
+wp_reset_postdata();
+?>
+</ul>

@@ -14,9 +14,7 @@
  *       Thank you for reading
  */
 ?>
-<li>
-    <div class="ptl--header">
-        <h3 class="ptl--header-title"><?= $title; ?></h3>
-        <p><?= $subtitle; ?></p>
-    </div>
-</li>
+<div class="ptl--header">
+    <h3 class="ptl--header-title"><?= $title; ?></h3>
+    <p><?= $subtitle; ?></p>
+</div>
