@@ -17,7 +17,7 @@
             </a>
         </h3>
         <p>
-            <?= $post->post_excerpt ? $post->post_excerpt : $post->post_content; ?>
+            <?= get_the_excerpt(); ?>
         </p>
         <p>
             <ul class="ptl--cats">

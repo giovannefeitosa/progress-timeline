@@ -185,6 +185,7 @@ class Progress_Timeline {
         $this->loader->add_action( 'wp_ajax_nopriv_ptl_ajax_load_more', $plugin_public, 'ptl_ajax_load_more' );
         $this->loader->add_shortcode( 'progress_timeline', $plugin_public, 'progress_timeline_shortcode');
         $this->loader->add_filter( 'the_content', $plugin_public, 'progress_timeline_content_filter' );
+        $this->loader->add_filter( 'get_the_excerpt', $plugin_public, 'progress_timeline_excerpt_filter' );
 
 	}
 
