@@ -43,13 +43,13 @@
         <ul class="ptl--item-footer-ul">
             <li>
                 <div class="ptl--item-action">
-                    <img src="http://placehold.it/20x20">
+                    <span class="pt-icon-clock"></span>
                     <?= Progress_Timeline_Helpers::post_time_ago( $post ); ?>
                 </div>
             </li>
             <li>
                 <div class="ptl--item-action">
-                    <img src="http://placehold.it/20x20">
+                    <span class="pt-icon-bubble2"></span>
                     0 <?= __( 'comments', 'progress-timeline' ); ?>
                 </div>
             </li>

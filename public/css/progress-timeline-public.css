@@ -1,12 +1,31 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
-/*
-.hentry {
-    padding: 1em !important;
+@font-face {
+  font-family: 'icomoon';
+  src: url("../fonts/icomoon.eot?x1avvz");
+  src: url("../fonts/icomoon.eot?x1avvz#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?x1avvz") format("truetype"), url("../fonts/icomoon.woff?x1avvz") format("woff"), url("../fonts/icomoon.svg?x1avvz#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
-*/
+[class^="pt-icon-"], [class*=" pt-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pt-icon-clock:before {
+  content: "\e94e";
+}
+
+.pt-icon-bubble2:before {
+  content: "\e96e";
+}
 
 .ptl-container {
   display: flex;
@@ -17,15 +36,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-}
-.progress-timeline-posts {
-  display: flex !important;
-  flex-flow: row wrap;
-  align-content: stretch;
-}
-.progress-timeline-posts > li {
-  flex: 1 0 50%;
-  padding: .5em;
 }
 
 .ptl-tl-container {
