@@ -50,7 +50,7 @@
             <li>
                 <div class="ptl--item-action">
                     <span class="pt-icon-bubble2"></span>
-                    0 <?= __( 'comments', 'progress-timeline' ); ?>
+                    <?php comments_number(); ?>
                 </div>
             </li>
         </ul>
