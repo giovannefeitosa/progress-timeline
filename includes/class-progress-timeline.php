@@ -117,7 +117,7 @@ class Progress_Timeline {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-progress-timeline-admin.php';
-
+        
 		/**
 		 * The class that handles the Timeline options and HTML code
 		 */
@@ -164,6 +164,7 @@ class Progress_Timeline {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action( 'init', $plugin_admin, 'action_admin_init' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'action_admin_settings' );
         $this->loader->add_action( 'admin_menu',  $plugin_admin, 'display_settings_submenu');
 
 	}

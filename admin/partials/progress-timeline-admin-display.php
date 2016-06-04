@@ -12,5 +12,20 @@
  * @subpackage Progress_Timeline/admin/partials
  */
 ?>
-<h1>Hello, admin!</h1>
-<p>This is where you will customize the settings for this plugin</p>
+<div class="ptl-admin-wrap">
+    <h1>Progress Timeline</h1>
+    
+    <hr>
+    
+    <form method="post" action="options.php">
+        <?php
+            settings_fields( 'pgtimeline_options' );
+            do_settings_sections( 'progress-timeline-settings-page' );
+        ?>
+        
+        <p>
+            <input type="submit" class="button-primary" value="<?= __('Save changes', 'progress-timeline') ?>">
+        </p>
+    </form>
+    
+</div>

@@ -66,7 +66,7 @@ class Progress_Timeline_Admin {
             __( 'Progress Timeline Settings', 'progress-timeline' ),
             __( 'Settings', 'progress-timeline' ),
             'manage_options',
-            'progress-timeline-settings',
+            'progress-timeline-settings-page',
             array($this, 'show_admin_page')
             // '',
             // '3.0'
@@ -220,6 +220,55 @@ class Progress_Timeline_Admin {
         
         flush_rewrite_rules();
         
+    }
+    
+    /**
+     * Register the settings sections and fields
+     */
+    public function action_admin_settings()
+    {
+        add_settings_section(
+                'ptl_setting_section',
+                __( 'General Settings', 'progress-timeline' ),
+                array($this, 'render_settings_general_section'),
+                'progress-timeline-settings-page'
+        );
+        
+        add_settings_field(
+                'ptl_setting_comment', // id
+                __( 'Show comments count', 'progress-timeline'), // title
+                array($this, 'render_settings_comment'), // callback
+                'progress-timeline-settings-page', // page
+                'ptl_setting_section' // section
+        );
+        
+        register_setting( 'pgtimeline_options', 'pgtimeline' );
+    }
+    
+    /**
+     * Output section html
+     */
+    public function render_settings_general_section()
+    {
+        // Silence is golden
+    }
+    
+    /**
+     * Output show comments option
+     */
+    public function render_settings_comment()
+    {
+        $options = get_option( 'pgtimeline' );
+        $option_name = 'show_comments';
+        $option_value = isset($options[ $option_name ]) ? $options[ $option_name ] : 0;
+        
+        echo '<label>';
+        echo '<input type="checkbox" name="pgtimeline['
+                . $option_name . ']" '
+                . checked( $option_value, 1, false )
+                . ' value="1"> ';
+        echo __('Show comments count on each timeline post', 'progress-timeline');
+        echo '</label>';
     }
 
 }
