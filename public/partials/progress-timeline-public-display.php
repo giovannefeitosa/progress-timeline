@@ -41,7 +41,8 @@ $last_post_date = isset($last_post_date) ? $last_post_date : '';
             
         <?php include __DIR__ . '/timeline-page.php'; ?>
         
-        <button data-progress-timeline-load-more>Load More...</button>
+        <button data-progress-timeline-load-more><?= __('Load More', 'progress-timeline'); ?>...</button>
+        
     </div>
     
 </div>
