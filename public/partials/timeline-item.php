@@ -47,12 +47,14 @@
                     <?= Progress_Timeline_Helpers::post_time_ago( $post ); ?>
                 </div>
             </li>
+            <?php if( Progress_Timeline_Helpers::get_option('show_comments').'' === '1' ): ?>
             <li>
                 <div class="ptl--item-action">
                     <span class="pt-icon-bubble2"></span>
                     <?php comments_number(); ?>
                 </div>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </div>
