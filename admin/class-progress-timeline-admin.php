@@ -258,9 +258,8 @@ class Progress_Timeline_Admin {
      */
     public function render_settings_comment()
     {
-        $options = get_option( 'pgtimeline' );
         $option_name = 'show_comments';
-        $option_value = isset($options[ $option_name ]) ? $options[ $option_name ] : 0;
+        $option_value = Progress_Timeline_Helpers::get_option( $option_name, 0 );
         
         echo '<label>';
         echo '<input type="checkbox" name="pgtimeline['
