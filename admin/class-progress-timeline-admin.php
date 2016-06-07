@@ -230,16 +230,24 @@ class Progress_Timeline_Admin {
         add_settings_section(
                 'ptl_setting_section',
                 __( 'General Settings', 'progress-timeline' ),
-                array($this, 'render_settings_general_section'),
+                array( $this, 'render_settings_general_section' ),
                 'progress-timeline-settings-page'
         );
         
         add_settings_field(
                 'ptl_setting_comment', // id
-                __( 'Show comments count', 'progress-timeline'), // title
-                array($this, 'render_settings_comment'), // callback
+                __( 'Show comments count', 'progress-timeline' ), // title
+                array( $this, 'render_settings_comment' ), // callback
                 'progress-timeline-settings-page', // page
                 'ptl_setting_section' // section
+        );
+        
+        add_settings_field(
+                'ptl_setting_linkback',
+                __( 'Show link "Go back to timeline"', 'progress-timeline' ),
+                array( $this, 'render_settings_linkback' ),
+                'progress-timeline-settings-page',
+                'ptl_setting_section'
         );
         
         register_setting( 'pgtimeline_options', 'pgtimeline' );
@@ -267,6 +275,23 @@ class Progress_Timeline_Admin {
                 . checked( $option_value, 1, false )
                 . ' value="1"> ';
         echo __('Show comments count on each timeline post', 'progress-timeline');
+        echo '</label>';
+    }
+    
+    /**
+     * Output link back option
+     */
+    public function render_settings_linkback()
+    {
+        $option_name = 'linkback';
+        $option_value = Progress_Timeline_Helpers::get_option( $option_name, 0);
+        
+        echo '<label>';
+        echo '<input type="checkbox" name="pgtimeline['
+                . $option_name . ']" '
+                . checked( $option_value, 1, false )
+                . ' value="1"> ';
+        echo __('Show link in single timeline posts', 'progress-timeline');
         echo '</label>';
     }
 

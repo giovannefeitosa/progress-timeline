@@ -182,9 +182,13 @@ class Progress_Timeline_Public {
      * Show link "back to timeline" in single timeline post's page
      */
     public function progress_timeline_content_filter( $content ) {
+        
         global $post;
         
-        if($post->post_type === 'timeline_post' && is_single()) {
+        if( Progress_Timeline_Helpers::get_option( 'linkback', 0 )
+                && $post->post_type === 'timeline_post'
+                && is_single()
+          ) {
             
             $pt_url = get_post_type_archive_link( 'timeline_post' );
             
