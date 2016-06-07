@@ -184,13 +184,15 @@ class Progress_Timeline_Public {
     public function progress_timeline_content_filter( $content ) {
         global $post;
         
-        if($post->post_type === 'timeline_post') {
+        if($post->post_type === 'timeline_post' && is_single()) {
             
             $pt_url = get_post_type_archive_link( 'timeline_post' );
             
+            $pt_text = __( 'Go back to Timeline', 'progress-timeline' );
+            
             $pt_link = '<div class="ptl-back-link">'
-                        . '<a href="' . $pt_url . '" title="Voltar para a Timeline">'
-                        . 'Voltar para a Timeline'
+                        . '<a href="' . $pt_url . '" title="' . $pt_text . '">'
+                        . $pt_text
                         . '</a>'
                         . '</div>';
             
